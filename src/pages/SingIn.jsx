@@ -2,6 +2,7 @@ import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/image/ABC logo.png";
 import { useState } from "react";
 import http from "../axios/http";
+import Swal from "sweetalert2";
 const SingIn = () => {
   const [user, setUser] = useState({
     email: "",
@@ -13,10 +14,44 @@ const SingIn = () => {
     http
       .post("login", JSON.stringify(user))
       .then((response) => {
-        console.log(response);
+        if (response.data.status == true) {
+          const Toast = Swal.mixin({
+            toast: true,
+            position: "top-end",
+            showConfirmButton: false,
+            timer: 3000,
+            timerProgressBar: true,
+            didOpen: (toast) => {
+              toast.addEventListener("mouseenter", Swal.stopTimer);
+              toast.addEventListener("mouseleave", Swal.resumeTimer);
+            },
+          });
+
+          Toast.fire({
+            icon: "success",
+            title: "Signed in successfully",
+          });
+          navigate("/dashboard");
+        }
       })
       .catch((error) => {
         console.log(error);
+        const Toast = Swal.mixin({
+          toast: true,
+          position: "top-center",
+          showConfirmButton: false,
+          timer: 3000,
+          timerProgressBar: true,
+          didOpen: (toast) => {
+            toast.addEventListener("mouseenter", Swal.stopTimer);
+            toast.addEventListener("mouseleave", Swal.resumeTimer);
+          },
+        });
+
+        Toast.fire({
+          icon: "error",
+          title: error.response.data.message,
+        });
       });
     console.log(user);
   };
