@@ -16,7 +16,7 @@ const Navbar = () => {
                 method="GET"
                 className="hidden lg:block lg:pl-2 "
               >
-                <label for="topbar-search" className="sr-only">
+                <label htmlFor="topbar-search" className="sr-only">
                   Search
                 </label>
                 <div className="relative mt-1 lg:w-96">

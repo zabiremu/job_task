@@ -58,8 +58,8 @@ const Sidebar = () => {
               </span>
             </li>
             <li className="mt-[8px]">
-              <a
-                href="#"
+              <Link
+                to="/dashboard"
                 className="flex items-center p-2 text-gray-900 rounded-lg dark:text-white hover:bg-[#EBEEF0] dark:hover:bg-[#EBEEF0] group"
               >
                 <img
@@ -69,7 +69,7 @@ const Sidebar = () => {
                 />
 
                 <span className="ms-3 text-[16px] font-[500]">Dashboard</span>
-              </a>
+              </Link>
             </li>
             <li className="mt-[8px]">
               <a

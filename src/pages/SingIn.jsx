@@ -1,9 +1,24 @@
 import { Link, useNavigate } from "react-router-dom";
 import logo from "../assets/image/ABC logo.png";
+import { useState } from "react";
+import http from "../axios/http";
 const SingIn = () => {
+  const [user, setUser] = useState({
+    email: "",
+    password: "",
+  });
   const navigate = useNavigate();
-  const handleSubmit = () => {
-    navigate("/dashboard");
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    http
+      .post("login", JSON.stringify(user))
+      .then((response) => {
+        console.log(response);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+    console.log(user);
   };
 
   return (
@@ -27,7 +42,7 @@ const SingIn = () => {
             >
               <div>
                 <label
-                  for="email"
+                  htmlFor="email"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Your email
@@ -38,12 +53,12 @@ const SingIn = () => {
                   id="email"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-black-600 focus:border-black-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   placeholder="name@company.com"
-                  required=""
+                  onChange={(e) => setUser({ email: e.target.value })}
                 />
               </div>
               <div>
                 <label
-                  for="password"
+                  htmlFor="password"
                   className="block mb-2 text-sm font-medium text-gray-900 dark:text-white"
                 >
                   Password
@@ -55,6 +70,9 @@ const SingIn = () => {
                   placeholder="••••••••"
                   className="bg-gray-50 border border-gray-300 text-gray-900 sm:text-sm rounded-lg focus:ring-black-600 focus:border-black-600 block w-full p-2.5 dark:bg-gray-700 dark:border-gray-600 dark:placeholder-gray-400 dark:text-white dark:focus:ring-blue-500 dark:focus:border-blue-500"
                   required=""
+                  onChange={(e) =>
+                    setUser({ ...user, password: e.target.value })
+                  }
                 />
               </div>
               <div className="flex items-center justify-between">
@@ -70,7 +88,7 @@ const SingIn = () => {
                   </div>
                   <div className="ml-3 text-sm">
                     <label
-                      for="remember"
+                      htmlFor="remember"
                       className="text-gray-500 dark:text-gray-300"
                     >
                       Remember me

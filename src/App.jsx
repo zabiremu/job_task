@@ -3,7 +3,7 @@ import { BrowserRouter, Route, Routes } from "react-router-dom";
 import SingIn from "./pages/SingIn";
 import SingUp from "./pages/SingUp";
 import Dashboard from "./pages/Dashboard";
-
+import "flowbite";
 const App = () => {
   return (
     <div>
